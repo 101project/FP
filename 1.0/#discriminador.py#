@@ -1,0 +1,11 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+
+import subprocess
+import os
+import shlex
+
+user = sys.argv[1]
+ipPrinter = sys.argv[2]
+document = sys.argv[3]
+
