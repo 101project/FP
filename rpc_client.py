@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #$ python rpc_client.py tipoDeMensajeAEnviar(TEMA) Mensaje ip
 #$ python rpc_client.py fibonacci 30 192.168.1.106
+#./rpc_client.py fibonacci duplicatedfile.pdf 10.8.0.6
 
 import pika
 import uuid
@@ -34,10 +35,10 @@ class FibonacciRpcClient(object):
                                          reply_to = self.callback_queue,
                                          correlation_id = self.corr_id,
                                          ),
-                                   body=str(cuerpo))
-                                   #body=cuerpo.read()) #para archivo
+                                   #body=str(cuerpo))
+                                   body=cuerpo.read()) #para archivo
         print "El tema es:%s" % (str(self.severity))
-        print "El numero es:%d" % (int(cuerpo))
+        #print "El numero es:%d" % (int(cuerpo))
         while self.response is None:
             self.connection.process_data_events()
         return int(self.response)
@@ -50,13 +51,13 @@ cuerpo = sys.argv[2]
 if len(sys.argv) > 1:
     #mando llamar el call enviando el body y el severity
     ####PARA FIBONACCI####
-    print " [x] Requesting Severity:%s Body:fib(%d)" % (str(tema), int(cuerpo))
-    response = fibonacci_rpc.call(int(cuerpo), str(tema)) #Para fib
+    #print " [x] Requesting Severity:%s Body:fib(%d)" % (str(tema), int(cuerpo))
+    #response = fibonacci_rpc.call(int(cuerpo), str(tema)) #Para fib
 
     ####PARA ARCHIVOS####
-    #archivoAImprimir = open(cuerpo, 'rb')
-    #response = fibonacci_rpc.call(archivoAImprimir, str(tema))
-    #archivoAImprimir.close()
+    archivoAImprimir = open(cuerpo, 'rb')
+    response = fibonacci_rpc.call(archivoAImprimir, str(tema))
+    archivoAImprimir.close()
 
 else: #En caso de que no se haya mandado severity ni archivo
     print " [x] Requesting Sev... No has enviado nada... utiliza: \n $ python rpc_client [Cuerpo] [Tema]"
