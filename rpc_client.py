@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #$ python rpc_client.py tipoDeMensajeAEnviar(TEMA) Mensaje ip
 #$ python rpc_client.py fibonacci 30 192.168.1.106
+#./rpc_client.py fibonacci duplicatedfile.pdf 10.8.0.6
 
 import pika
 import uuid
@@ -37,7 +38,7 @@ class FibonacciRpcClient(object):
                                    #body=str(cuerpo))  #para fibonacci
                                    body=cuerpo.read()) #para archivo
         print "El tema es:%s" % (str(self.severity))
-        print "El numero es:%d" % (int(cuerpo))
+        #print "El numero es:%d" % (int(cuerpo))
         while self.response is None:
             self.connection.process_data_events()
         return int(self.response)
