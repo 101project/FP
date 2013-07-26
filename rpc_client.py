@@ -35,7 +35,7 @@ class FibonacciRpcClient(object):
                                          reply_to = self.callback_queue,
                                          correlation_id = self.corr_id,
                                          ),
-                                   #body=str(cuerpo))
+                                   #body=str(cuerpo))  #para fibonacci
                                    body=cuerpo.read()) #para archivo
         print "El tema es:%s" % (str(self.severity))
         #print "El numero es:%d" % (int(cuerpo))

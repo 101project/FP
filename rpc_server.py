@@ -8,8 +8,10 @@ import os
 import threading
 
 #Conexion de Rabbit
+#connection = pika.BlockingConnection(pika.ConnectionParameters(
+#        host='localhost'))
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+        host='10.8.0.6'))
 
 channel = connection.channel()
 
@@ -46,7 +48,7 @@ def func_imprimir(archivoAImprimir):
             handle.write(archivoAImprimir)
             handle.close()
             #Path donde se va a duplicar el archivo (Donde se corre el programa)
-            path = "/home/alfonso/Documentos/RabbitMQ/Programa/duplicatedfile.pdf"
+            path = "/home/aalvz/Documents/fastPrinter/gitPrograma/duplicatedfile.pdf"
             estado = subprocess.Popen(["lp", path], stdout=subprocess.PIPE)
             out, err = estado.communicate() #Verifico errores al mandar imprimir (otra vez)
             #t = threading.Timer(2.0, func_verificaEstado())
