@@ -1,0 +1,3 @@
+dn: o=margil,dc=fastprinter,dc=co
+objectClass: organization
+o: margil
